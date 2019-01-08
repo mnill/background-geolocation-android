@@ -151,7 +151,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter implements HttpPost
             int responseCode = HttpPostService.postJSONFile(url, file, httpHeaders, this);
 
             // All 2xx statuses are okay
-            boolean isStatusOkay = responseCode >= 200 && responseCode < 300;
+            boolean isStatusOkay = (responseCode >= 200 && responseCode < 300) || (responseCode >= 500);
 
             if (responseCode == 285) {
                 // Okay, but we don't need to continue sending these

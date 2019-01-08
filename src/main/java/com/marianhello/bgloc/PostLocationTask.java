@@ -168,7 +168,7 @@ public class PostLocationTask {
         }
 
         // All 2xx statuses are okay
-        boolean isStatusOkay = responseCode >= 200 && responseCode < 300;
+        boolean isStatusOkay = (responseCode >= 200 && responseCode < 300) || (responseCode >= 500);
 
         if (!isStatusOkay) {
             logger.warn("Server error while posting locations responseCode: {}", responseCode);
