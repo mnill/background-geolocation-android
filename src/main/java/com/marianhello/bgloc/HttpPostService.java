@@ -70,7 +70,7 @@ public class HttpPostService {
         HttpURLConnection conn = this.openConnection();
         conn.setDoOutput(true);
         conn.setFixedLengthStreamingMode(body.length());
-        conn.setRequestMethod("POST");
+        conn.setRequestMethod("PUT");
         conn.setRequestProperty("Content-Type", "application/json");
         Iterator<Map.Entry<String, String>> it = headers.entrySet().iterator();
         while (it.hasNext()) {
@@ -158,7 +158,14 @@ public class HttpPostService {
 
     public static int postJSON(String url, JSONArray json, Map headers) throws IOException {
         HttpPostService service = new HttpPostService(url);
-        return service.postJSON(json, headers);
+        JSONObject obj = new JSONObject();
+        try {
+            obj = json.getJSONObject(0);
+        } catch (org.json.JSONException e) {
+            e.printStackTrace();
+        }
+
+        return service.postJSON(obj, headers);
     }
 
     public static int postJSONFile(String url, File file, Map headers, UploadingProgressListener listener) throws IOException {
